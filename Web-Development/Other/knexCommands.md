@@ -1,3 +1,5 @@
+Knex commands -
+
 ```
 knex init
 knex migrate:make <name>
@@ -8,13 +10,10 @@ knex migrate:rollback
 knex migrate:rollback --all
 knex migrate:status
 knex migrate:currentVersion
-
 knex seed:make <name>
 knex seed:run
-
 knex db:create
 knex db:drop
-
 knex help
 knex --version
 ```
@@ -48,87 +47,6 @@ to
 * **Knex**: `table.bigInteger()`
 
 ---
-
-## 2️⃣ Unsigned `BIGINT`
-
-Used when you add `.unsigned()`.
-
-### Range
-
-```
-0
-to
-18,446,744,073,709,551,615
-```
-
-➡️ This is a **64-bit unsigned integer** (`2^64 - 1`).
-
-### In databases
-
-* **MySQL / MariaDB**: `BIGINT UNSIGNED` ✅
-* **PostgreSQL**: ❌ No native unsigned support
-
-  * Knex silently ignores `.unsigned()`
-
----
-
-## Quick comparison
-
-| Type            | Min      | Max     |
-| --------------- | -------- | ------- |
-| BIGINT (signed) | -9.22e18 | 9.22e18 |
-| BIGINT UNSIGNED | 0        | 1.84e19 |
-
----
-
-## Why IDs often use `BIGINT UNSIGNED`
-
-* IDs are **never negative**
-* Doubles the positive range
-* Safe for:
-
-  * High-scale systems
-  * Long-running databases
-  * Distributed ID generators
-
-Example:
-
-```ts
-table.bigInteger('id').unsigned().primary();
-```
-
----
-
-## Knex + PostgreSQL note (important)
-
-If you are using **PostgreSQL**:
-
-* `.unsigned()` has **no effect**
-* Range is always **signed BIGINT**
-
-So this is fine:
-
-```ts
-table.bigInteger('coupon_id');
-```
-
-But this is mainly for **MySQL compatibility**:
-
-```ts
-table.bigInteger('coupon_id').unsigned();
-```
-
----
-
-### Summary
-
-* `BIGINT` = **64-bit integer**
-* Signed range: **±9.22 quintillion**
-* Unsigned range: **0 to 18.44 quintillion**
-* `.unsigned()` matters in **MySQL**, ignored in **Postgres**
-
-If you want, I can also explain `INT`, `SMALLINT`, or when **BIGINT is overkill**.
-
 
 
 `unsigned` means **the column cannot store negative values**.
@@ -307,7 +225,4 @@ If you **soft delete** (set `is_deleted = true`):
 * Applies at **database level**
 * Best practice for **junction tables**
 * Does **not** apply to soft deletes
-
-If you want, I can explain `RESTRICT`, `SET NULL`, or when **not** to use `CASCADE`.
-
 
