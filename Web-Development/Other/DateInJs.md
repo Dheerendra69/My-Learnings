@@ -43,11 +43,8 @@ d.toLocaleString('en-IN', {
 });
 ```
 
-### Key points
+### Key point
 
-* Locale-aware
-* Timezone-aware (uses local timezone by default)
-* Safer than manual date formatting
 * Returns a **string**, not a `Date`
 
 ### Related methods
