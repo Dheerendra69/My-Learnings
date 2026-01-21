@@ -1,0 +1,142 @@
+In a **React frontend**, how you access `.env` variables depends on the setup (Create React App, Vite, Next.js). Here’s the **correct and safe way** for each common setup.
+
+---
+
+## 1️⃣ Create React App (CRA)
+
+### ✅ Rules
+
+* Environment variables **must start with `REACT_APP_`**
+* `.env` is read at **build time**, not runtime
+* Restart dev server after changes
+
+### Example `.env`
+
+```env
+REACT_APP_API_URL=https://api.example.com
+REACT_APP_ENV=production
+```
+
+### Access in React
+
+```js
+const apiUrl = process.env.REACT_APP_API_URL;
+console.log(apiUrl);
+```
+
+---
+
+## 2️⃣ Vite (Recommended for new projects)
+
+### ✅ Rules
+
+* Variables **must start with `VITE_`**
+* Accessed via `import.meta.env`
+
+### Example `.env`
+
+```env
+VITE_API_URL=https://api.example.com
+VITE_ENV=production
+```
+
+### Access in React
+
+```js
+const apiUrl = import.meta.env.VITE_API_URL;
+console.log(apiUrl);
+```
+
+---
+
+## 3️⃣ Next.js (Frontend + Backend)
+
+### ✅ Client-side rules
+
+* Client-side variables **must start with `NEXT_PUBLIC_`**
+
+### Example `.env.local`
+
+```env
+NEXT_PUBLIC_API_URL=https://api.example.com
+```
+
+### Access in React Component
+
+```js
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+```
+
+---
+
+## 4️⃣ Environment-specific files
+
+React supports multiple `.env` files:
+
+```txt
+.env                # default
+.env.development
+.env.production
+.env.test
+```
+
+Example:
+
+```env
+REACT_APP_API_URL=http://localhost:4000
+```
+
+---
+
+## ⚠️ Important Security Rule (VERY IMPORTANT)
+
+> ❌ **Never store secrets in frontend `.env` files**
+
+**Anything in frontend `.env` is exposed to users.**
+
+🚫 Do NOT store:
+
+* DB passwords
+* Private API keys
+* JWT secrets
+
+✅ Store only:
+
+* Public API URLs
+* Feature flags
+* Public tokens
+
+---
+
+## 5️⃣ Restart Required
+
+After editing `.env`:
+
+```bash
+npm start
+# or
+npm run dev
+```
+
+---
+
+## 6️⃣ Common Mistakes
+
+| Mistake                                | Result      |
+| -------------------------------------- | ----------- |
+| Missing prefix (`REACT_APP_`, `VITE_`) | `undefined` |
+| Forgetting restart                     | Old values  |
+| Using `process.env` in Vite            | ❌           |
+| Expecting runtime changes              | ❌           |
+
+---
+
+## Quick Summary
+
+| Framework | Prefix         | Access                      |
+| --------- | -------------- | --------------------------- |
+| CRA       | `REACT_APP_`   | `process.env.REACT_APP_*`   |
+| Vite      | `VITE_`        | `import.meta.env.VITE_*`    |
+| Next.js   | `NEXT_PUBLIC_` | `process.env.NEXT_PUBLIC_*` |
+
+---
