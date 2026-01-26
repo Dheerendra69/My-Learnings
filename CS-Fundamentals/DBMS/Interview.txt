@@ -1,10 +1,8 @@
 https://www.geeksforgeeks.org/dbms/commonly-asked-dbms-interview-questions/
 
 
-
 What are the advantages of using a DBMS?
 The advantages of using a DBMS are:
-
 Data Integrity: Ensures that the data is accurate and consistent.
 Data Security: Provides controlled access to sensitive data by setting permissions for different users.
 Efficient Data Retrieval: Optimizes queries and indexing, allowing faster data retrieval.
@@ -12,10 +10,20 @@ Reduced Redundancy: Avoids duplicate data by enforcing normalization.
 Backup and Recovery: Offers automatic backup and recovery mechanisms.
 Concurrent Access: Allows multiple users to access the database at the same time without conflicts.
 
+
 What are the different types of DBMS?
 The four types of DBMS are:
-
 Hierarchical DBMS: Data is organized in a tree-like structure with parent-child relationships. Example: IBM’s IMS.
 Network DBMS: Data is represented as a graph with many-to-many relationships. Example: Integrated Data Store (IDS).
 Relational DBMS (RDBMS): Data is organized in tables (relations) and managed through SQL. Example: MySQL, PostgreSQL.
 Object-Oriented DBMS: Data is stored as objects, like in object-oriented programming. Example: ObjectDB.
+
+
+
+What are the primary components of a DBMS?
+The primary components of a DBMS are:
+Database Engine: Responsible for storing, retrieving, and managing data.
+Database Schema: The structure that defines the organization of the database.
+Query Processor: Interprets and executes SQL queries.
+Transaction Manager: Ensures the ACID properties of transactions.
+Storage Manager: Manages the physical storage of data.
